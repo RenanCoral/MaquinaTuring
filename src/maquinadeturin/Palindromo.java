@@ -10,7 +10,7 @@ package maquinadeturin;
  * @author diego
  */
 class Palindromo {
-    protected Maquina palindromo = new Maquina(8,4);
+    private Maquina palindromo = new Maquina(8,4);
     
     public Palindromo(){
         construir();
