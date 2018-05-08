@@ -7,6 +7,8 @@ package maquinadeturin;
 
 import java.awt.List;
 import java.util.ArrayList;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -14,15 +16,34 @@ import java.util.ArrayList;
  */
 public class Principal extends javax.swing.JFrame {
 
- 
+ Maquina maquina = new Maquina();
+ String estado="0";
+ String simboloEscrito="";
+ String simboloLeido="";
+ String movimiento="";
     /**
      * Creates new form Principal
      */
     public Principal() {
         initComponents();
-        jtCinta.removeAll();
+        DefaultTableModel temp = (DefaultTableModel) jtCinta.getModel();
+        temp.setNumRows(0);
+        temp.setColumnCount(0);
+        
+        DefaultTableModel temp2 = (DefaultTableModel) jtEstados.getModel();
+        temp2.setNumRows(0);
+        temp2.setColumnCount(0);
     }
-
+    String[] cargar(){
+       DefaultTableModel temp = (DefaultTableModel) jtCinta.getModel();
+       temp.setNumRows(0);
+       String cadena = " " + jtxtCadena.getText() +" ";
+       String[] caracter = cadena.split("");
+       temp.setColumnCount(caracter.length);
+       temp.addRow(caracter);
+        
+       return caracter;
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -41,7 +62,7 @@ public class Principal extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         jtCinta = new javax.swing.JTable();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jTextPane1 = new javax.swing.JTextPane();
+        jtxtCadena = new javax.swing.JTextPane();
         jScrollPane3 = new javax.swing.JScrollPane();
         jtEstados = new javax.swing.JTable();
         jLabel2 = new javax.swing.JLabel();
@@ -50,14 +71,39 @@ public class Principal extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jbtnPalin.setText("Palindromo");
+        jbtnPalin.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbtnPalinActionPerformed(evt);
+            }
+        });
 
         jbtnEspejo.setText("Cadena espejo");
+        jbtnEspejo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbtnEspejoActionPerformed(evt);
+            }
+        });
 
         jbtnCopiar.setText("Copiar cadena");
+        jbtnCopiar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbtnCopiarActionPerformed(evt);
+            }
+        });
 
         jbtnMul.setText("Multiplicación");
+        jbtnMul.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbtnMulActionPerformed(evt);
+            }
+        });
 
         jbtnSum.setText("Suma");
+        jbtnSum.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbtnSumActionPerformed(evt);
+            }
+        });
 
         jLabel1.setText("Cadena de entrada:");
 
@@ -75,7 +121,7 @@ public class Principal extends javax.swing.JFrame {
         jtCinta.setEnabled(false);
         jScrollPane1.setViewportView(jtCinta);
 
-        jScrollPane2.setViewportView(jTextPane1);
+        jScrollPane2.setViewportView(jtxtCadena);
 
         jtEstados.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -121,16 +167,18 @@ public class Principal extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(187, 187, 187)
-                        .addComponent(jLabel2))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(201, 201, 201)
-                        .addComponent(jLabel3)))
-                .addGap(61, 61, 61))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(187, 187, 187)
+                                .addComponent(jLabel2)))
+                        .addGap(61, 61, 61))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(jLabel3)
+                        .addGap(212, 212, 212))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -149,16 +197,75 @@ public class Principal extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(12, 12, 12)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel3)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(18, 18, 18)
                 .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jbtnPalinActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnPalinActionPerformed
+     //  cargar();
+      DefaultTableModel temp = (DefaultTableModel) jtCinta.getModel();
+       DefaultTableModel temp2 = (DefaultTableModel) jtEstados.getModel();
+       temp2.setNumRows(8);
+       temp2.setColumnCount(4);
+       String caracter[] = new String[cargar().length];
+       String casilla[] = new String[3];
+       
+       int posicion = 1;
+       
+       caracter = cargar();
+       estado="0";
+       simboloLeido = caracter[1];
+       movimiento = " ";
+        do {
+           
+            casilla = maquina.palindromo(estado, simboloLeido);
+            
+            estado = casilla[0];
+            simboloEscrito = casilla[1];
+            movimiento = casilla[2];
+            
+            caracter[posicion] = simboloEscrito;
+            
+            if ("R".equals(movimiento)) {
+                posicion = posicion +1;
+            }else{
+                posicion = posicion -1;
+            }
+            simboloLeido = caracter[posicion];
+            temp.addRow(caracter);
+             temp.setNumRows(temp.getRowCount()+1);
+            
+             if ("F".equals(casilla[0])) {
+                JOptionPane.showMessageDialog(null, "infoMessage", 
+                                "La cadena es un palindromo",
+                                JOptionPane.INFORMATION_MESSAGE);
+            }
+        } while (!casilla[0].contains("F"));
+
+    }//GEN-LAST:event_jbtnPalinActionPerformed
+
+    private void jbtnEspejoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnEspejoActionPerformed
+        cargar();
+    }//GEN-LAST:event_jbtnEspejoActionPerformed
+
+    private void jbtnCopiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnCopiarActionPerformed
+        cargar();
+    }//GEN-LAST:event_jbtnCopiarActionPerformed
+
+    private void jbtnMulActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnMulActionPerformed
+       cargar();
+    }//GEN-LAST:event_jbtnMulActionPerformed
+
+    private void jbtnSumActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnSumActionPerformed
+        cargar();
+    }//GEN-LAST:event_jbtnSumActionPerformed
 
     /**
      * @param args the command line arguments
@@ -208,7 +315,6 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
-    private javax.swing.JTextPane jTextPane1;
     private javax.swing.JButton jbtnCopiar;
     private javax.swing.JButton jbtnEspejo;
     private javax.swing.JButton jbtnMul;
@@ -216,5 +322,6 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JButton jbtnSum;
     private javax.swing.JTable jtCinta;
     private javax.swing.JTable jtEstados;
+    private javax.swing.JTextPane jtxtCadena;
     // End of variables declaration//GEN-END:variables
 }

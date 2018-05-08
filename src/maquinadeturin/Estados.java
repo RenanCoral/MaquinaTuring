@@ -9,28 +9,30 @@ package maquinadeturin;
  *
  * @author diego
  */
-class Estados {
+public class Estados {
     
     /**
      *Estado en el cual se encontraba antes
      */
-    protected Integer estado_Nuevo;
+     public Integer estado_Nuevo;
 
     /**
      *Simbolo que va a escribir
      */
-    protected String escritura;
+    public String escritura;
 
     /**
      *Se movera a la derecha o izquierda
      */
-    protected String movimiento;
+     public String movimiento;
 
     /**
      *Constructor de la clase
      */
     public Estados() {
-        
+        this.estado_Nuevo = 0;
+        this.escritura = "";
+        this.movimiento = "";
     }
 
 }
