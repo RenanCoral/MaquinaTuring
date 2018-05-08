@@ -34,15 +34,59 @@ public class Principal extends javax.swing.JFrame {
         temp2.setNumRows(0);
         temp2.setColumnCount(0);
     }
-    String[] cargar(){
+    String[] cargar(int opcion){
        DefaultTableModel temp = (DefaultTableModel) jtCinta.getModel();
        temp.setNumRows(0);
-       String cadena = " " + jtxtCadena.getText() +" ";
-       String[] caracter = cadena.split("");
-       temp.setColumnCount(caracter.length);
-       temp.addRow(caracter);
-        
+       String cadena = " "; 
+       
+        if (opcion == 2 | opcion == 4) {
+             cadena= " " + jtxtCadena.getText() +" "; 
+            for (int i = 0; i < jtxtCadena.getText().length(); i++) {
+               cadena = cadena + " ";
+            }
+        }else{
+            
+            cadena= " " + jtxtCadena.getText() +" "; 
+        }
+        String[] caracter = cadena.split("");
+        temp.setColumnCount(caracter.length);
+        temp.addRow(caracter);
        return caracter;
+    }
+    void Ejecutar(int opcion, int opcionCarga){
+        DefaultTableModel temp = (DefaultTableModel) jtCinta.getModel();
+       String caracter[] = new String[cargar(opcionCarga).length];
+       String casilla[] = new String[3];
+
+       int posicion = 1;
+       
+       caracter = cargar(opcionCarga);
+       estado="0";
+       simboloLeido = caracter[1];
+       movimiento = " ";
+        do {
+            casilla = elegirMaquina(opcion);
+            //casilla = maquina.palindromo(estado, simboloLeido);
+            
+            estado = casilla[0];
+            simboloEscrito = casilla[1];
+            movimiento = casilla[2];
+            
+            caracter[posicion] = simboloEscrito;
+            
+            if ("R".equals(movimiento)) {
+                posicion = posicion +1;
+            }else{
+                posicion = posicion -1;
+            }
+            simboloLeido = caracter[posicion];
+            temp.addRow(caracter);            
+             if ("F".equals(casilla[0])) {
+                JOptionPane.showMessageDialog(null, "infoMessage", 
+                                "La cadena es un palindromo",
+                                JOptionPane.INFORMATION_MESSAGE);
+            }
+        } while (!casilla[0].contains("F"));
     }
     /**
      * This method is called from within the constructor to initialize the form.
@@ -54,8 +98,8 @@ public class Principal extends javax.swing.JFrame {
     private void initComponents() {
 
         jbtnPalin = new javax.swing.JButton();
-        jbtnEspejo = new javax.swing.JButton();
         jbtnCopiar = new javax.swing.JButton();
+        jbtnResta = new javax.swing.JButton();
         jbtnMul = new javax.swing.JButton();
         jbtnSum = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
@@ -77,17 +121,17 @@ public class Principal extends javax.swing.JFrame {
             }
         });
 
-        jbtnEspejo.setText("Cadena espejo");
-        jbtnEspejo.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jbtnEspejoActionPerformed(evt);
-            }
-        });
-
-        jbtnCopiar.setText("Copiar cadena");
+        jbtnCopiar.setText("Copiar Cadena");
         jbtnCopiar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jbtnCopiarActionPerformed(evt);
+            }
+        });
+
+        jbtnResta.setText("Resta");
+        jbtnResta.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbtnRestaActionPerformed(evt);
             }
         });
 
@@ -156,14 +200,14 @@ public class Principal extends javax.swing.JFrame {
                         .addGap(25, 25, 25)
                         .addComponent(jbtnPalin)
                         .addGap(18, 18, 18)
-                        .addComponent(jbtnEspejo)
-                        .addGap(18, 18, 18)
                         .addComponent(jbtnCopiar)
-                        .addGap(18, 18, 18)
+                        .addGap(34, 34, 34)
                         .addComponent(jbtnMul)
                         .addGap(18, 18, 18)
-                        .addComponent(jbtnSum)))
-                .addContainerGap(21, Short.MAX_VALUE))
+                        .addComponent(jbtnSum)
+                        .addGap(18, 18, 18)
+                        .addComponent(jbtnResta)))
+                .addContainerGap(67, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -190,8 +234,8 @@ public class Principal extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jbtnPalin)
-                    .addComponent(jbtnEspejo)
                     .addComponent(jbtnCopiar)
+                    .addComponent(jbtnResta)
                     .addComponent(jbtnMul)
                     .addComponent(jbtnSum))
                 .addGap(18, 18, 18)
@@ -209,62 +253,23 @@ public class Principal extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jbtnPalinActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnPalinActionPerformed
-     //  cargar();
-      DefaultTableModel temp = (DefaultTableModel) jtCinta.getModel();
-       DefaultTableModel temp2 = (DefaultTableModel) jtEstados.getModel();
-       temp2.setNumRows(8);
-       temp2.setColumnCount(4);
-       String caracter[] = new String[cargar().length];
-       String casilla[] = new String[3];
-       
-       int posicion = 1;
-       
-       caracter = cargar();
-       estado="0";
-       simboloLeido = caracter[1];
-       movimiento = " ";
-        do {
-           
-            casilla = maquina.palindromo(estado, simboloLeido);
-            
-            estado = casilla[0];
-            simboloEscrito = casilla[1];
-            movimiento = casilla[2];
-            
-            caracter[posicion] = simboloEscrito;
-            
-            if ("R".equals(movimiento)) {
-                posicion = posicion +1;
-            }else{
-                posicion = posicion -1;
-            }
-            simboloLeido = caracter[posicion];
-            temp.addRow(caracter);
-             temp.setNumRows(temp.getRowCount()+1);
-            
-             if ("F".equals(casilla[0])) {
-                JOptionPane.showMessageDialog(null, "infoMessage", 
-                                "La cadena es un palindromo",
-                                JOptionPane.INFORMATION_MESSAGE);
-            }
-        } while (!casilla[0].contains("F"));
-
+      Ejecutar(1,1);
     }//GEN-LAST:event_jbtnPalinActionPerformed
 
-    private void jbtnEspejoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnEspejoActionPerformed
-        cargar();
-    }//GEN-LAST:event_jbtnEspejoActionPerformed
-
     private void jbtnCopiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnCopiarActionPerformed
-        cargar();
+        Ejecutar(2,2);
     }//GEN-LAST:event_jbtnCopiarActionPerformed
 
+    private void jbtnRestaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnRestaActionPerformed
+        Ejecutar(3,3);
+    }//GEN-LAST:event_jbtnRestaActionPerformed
+
     private void jbtnMulActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnMulActionPerformed
-       cargar();
+       Ejecutar(4,4);
     }//GEN-LAST:event_jbtnMulActionPerformed
 
     private void jbtnSumActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnSumActionPerformed
-        cargar();
+        Ejecutar(5,5);
     }//GEN-LAST:event_jbtnSumActionPerformed
 
     /**
@@ -316,12 +321,32 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JButton jbtnCopiar;
-    private javax.swing.JButton jbtnEspejo;
     private javax.swing.JButton jbtnMul;
     private javax.swing.JButton jbtnPalin;
+    private javax.swing.JButton jbtnResta;
     private javax.swing.JButton jbtnSum;
     private javax.swing.JTable jtCinta;
     private javax.swing.JTable jtEstados;
     private javax.swing.JTextPane jtxtCadena;
     // End of variables declaration//GEN-END:variables
+
+    private String[] elegirMaquina(int i) {
+        String casilla[] = new String[3];
+        switch(i){
+            case 1:
+                casilla = maquina.palindromo(estado, simboloLeido);
+                break;
+            case 2:
+                casilla = maquina.copiar(estado, simboloLeido);
+                break;
+            case 3:
+               break;
+            case 4:
+                casilla = maquina.multiplicar(estado, simboloLeido);
+                break;
+            case 5:
+                break;
+        }
+     return casilla;
+    }
 }

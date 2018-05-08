@@ -35,16 +35,16 @@
                       <EmptySpace min="-2" pref="25" max="-2" attributes="0"/>
                       <Component id="jbtnPalin" min="-2" max="-2" attributes="0"/>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
-                      <Component id="jbtnEspejo" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Component id="jbtnCopiar" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="34" max="-2" attributes="0"/>
                       <Component id="jbtnMul" min="-2" max="-2" attributes="0"/>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Component id="jbtnSum" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                      <Component id="jbtnResta" min="-2" max="-2" attributes="0"/>
                   </Group>
               </Group>
-              <EmptySpace pref="21" max="32767" attributes="0"/>
+              <EmptySpace pref="67" max="32767" attributes="0"/>
           </Group>
           <Group type="102" alignment="1" attributes="0">
               <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
@@ -81,8 +81,8 @@
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="jbtnPalin" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="jbtnEspejo" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="jbtnCopiar" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="jbtnResta" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="jbtnMul" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="jbtnSum" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
@@ -108,20 +108,20 @@
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jbtnPalinActionPerformed"/>
       </Events>
     </Component>
-    <Component class="javax.swing.JButton" name="jbtnEspejo">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="Cadena espejo"/>
-      </Properties>
-      <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jbtnEspejoActionPerformed"/>
-      </Events>
-    </Component>
     <Component class="javax.swing.JButton" name="jbtnCopiar">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Copiar cadena"/>
+        <Property name="text" type="java.lang.String" value="Copiar Cadena"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jbtnCopiarActionPerformed"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JButton" name="jbtnResta">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Resta"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jbtnRestaActionPerformed"/>
       </Events>
     </Component>
     <Component class="javax.swing.JButton" name="jbtnMul">
