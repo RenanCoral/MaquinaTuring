@@ -706,4 +706,255 @@ import javax.swing.JOptionPane;
        }
        return casilla; 
    }
+   
+   public String[] suma (String estado, String simbolo){
+        String casilla[] = new String[3];
+        switch(estado){
+            case "0":
+                switch(simbolo){
+                    case "1":
+                        casilla[0] = "1";
+                        casilla[1] = " ";
+                        casilla[2] = "R";
+                        break;
+                    case "+":
+                        casilla[0] = "0";
+                        casilla[1] = " ";
+                        casilla[2] = "R";
+                        break;
+                    case "=":
+                        casilla[0] = "F";
+                        casilla[1] = " ";
+                        casilla[2] = "R";
+                        break;
+                    case " ":
+                        break;
+                }
+                break;
+            case "1":
+                switch(simbolo){
+                    case "1":
+                        casilla[0] = "1";
+                        casilla[1] = "1";
+                        casilla[2] = "R";
+                        break;
+                    case "+":
+                        casilla[0] = "1";
+                        casilla[1] = "+";
+                        casilla[2] = "R";
+                        break;
+                    case "=":
+                        casilla[0] = "1";
+                        casilla[1] = "=";
+                        casilla[2] = "R";
+                        break;
+                    case " ":
+                        casilla[0] = "2";
+                        casilla[1] = "1";
+                        casilla[2] = "L";
+                        break;
+                }
+                break;
+            case "2":
+                switch(simbolo){
+                    case "1":
+                        casilla[0] = "2";
+                        casilla[1] = "1";
+                        casilla[2] = "L";
+                        break;
+                    case "+":
+                        casilla[0] = "2";
+                        casilla[1] = "+";
+                        casilla[2] = "L";
+                        break;
+                    case "=":
+                        casilla[0] = "2";
+                        casilla[1] = "=";
+                        casilla[2] = "L";
+                        break;
+                    case " ":
+                        casilla[0] = "0";
+                        casilla[1] = " ";
+                        casilla[2] = "R";
+                        break;
+                }
+                break;
+            case "F":
+                break;
+        }
+        return casilla;
+   }
+   
+   public String[] resta (String estado, String simbolo){
+        String casilla[] = new String[3];
+        
+        switch(estado){
+            case "0":
+                switch(simbolo){
+                    case "1":
+                        casilla[0] = "1";
+                        casilla[1] = " ";
+                        casilla[2] = "R";
+                        break;
+                    case "-":
+                        casilla[0] = "6";
+                        casilla[1] = " ";
+                        casilla[2] = "R";
+                        break;
+                    case "=":
+                        break;
+                    case " ":
+                        break;
+                }
+                break;
+            case "1":
+                 switch(simbolo){
+                    case "1":
+                        casilla[0] = "1";
+                        casilla[1] = "1";
+                        casilla[2] = "R";
+                        break;
+                    case "-":
+                        casilla[0] = "1";
+                        casilla[1] = "-";
+                        casilla[2] = "R";
+                        break;
+                    case "=":
+                        casilla[0] = "1";
+                        casilla[1] = "=";
+                        casilla[2] = "R";
+                        break;
+                    case " ":
+                        casilla[0] = "2";
+                        casilla[1] = "1";
+                        casilla[2] = "L";
+                        break;
+                }
+                break;
+            case "2":
+                switch(simbolo){
+                    case "1":
+                        casilla[0] = "2";
+                        casilla[1] = "1";
+                        casilla[2] = "L";
+                        break;
+                    case "-":
+                        casilla[0] = "2";
+                        casilla[1] = "-";
+                        casilla[2] = "L";
+                        break;
+                    case "=":
+                        casilla[0] = "2";
+                        casilla[1] = "=";
+                        casilla[2] = "L";
+                        break;
+                    case " ":
+                        casilla[0] = "0";
+                        casilla[1] = " ";
+                        casilla[2] = "R";
+                        break;
+                }
+                break;
+            case "3":
+                switch(simbolo){
+                    case "1":
+                        casilla[0] = "3";
+                        casilla[1] = "1";
+                        casilla[2] = "R";
+                        break;
+                    case "-":
+                        break;
+                    case "=":
+                        casilla[0] = "3";
+                        casilla[1] = "=";
+                        casilla[2] = "R";
+                        break;
+                    case " ":
+                        casilla[0] = "4";
+                        casilla[1] = " ";
+                        casilla[2] = "L";
+                        break;
+                }
+                break;
+            case "4":
+                switch(simbolo){
+                    case "1":
+                        casilla[0] = "5";
+                        casilla[1] = " ";
+                        casilla[2] = "L";
+                        break;
+                    case "-":
+                        break;
+                    case "=":
+                        casilla[0] = "7";
+                        casilla[1] = "1";
+                        casilla[2] = "L";
+                        break;
+                    case " ":
+                        break;
+                }
+                break;
+            case "5":
+                switch(simbolo){
+                    case "1":
+                        casilla[0] = "5";
+                        casilla[1] = "1";
+                        casilla[2] = "L";
+                        break;
+                    case "-":
+                        break;
+                    case "=":
+                        casilla[0] = "5";
+                        casilla[1] = "=";
+                        casilla[2] = "L";
+                        break;
+                    case " ":
+                        casilla[0] = "6";
+                        casilla[1] = " ";
+                        casilla[2] = "R";
+                        break;
+                }
+                break;
+            case "6":
+                switch(simbolo){
+                    case "1":
+                        casilla[0] = "3";
+                        casilla[1] = " ";
+                        casilla[2] = "R";
+                        break;
+                    case "-":
+                        break;
+                    case "=":
+                        casilla[0] = "F";
+                        casilla[1] = " ";
+                        casilla[2] = "R";
+                        break;
+                    case " ":
+                        break;
+                }
+                break;
+            case "7":
+                switch(simbolo){
+                    case "1":
+                        casilla[0] = "7";
+                        casilla[1] = "1";
+                        casilla[2] = "L";
+                        break;
+                    case "-":
+                        break;
+                    case "=":
+                        break;
+                    case " ":
+                        casilla[0] = "F";
+                        casilla[1] = "-";
+                        casilla[2] = "L";
+                        break;
+                }
+                break;
+            case "F":
+                break;
+        }
+        return casilla;
+       
+   }
 }

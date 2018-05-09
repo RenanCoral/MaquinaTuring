@@ -9,6 +9,7 @@ import java.awt.List;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.JTableHeader;
 
 /**
  *
@@ -21,6 +22,8 @@ public class Principal extends javax.swing.JFrame {
  String simboloEscrito="";
  String simboloLeido="";
  String movimiento="";
+ String estadoAnterior= "";
+ String simboloAnterior="";
     /**
      * Creates new form Principal
      */
@@ -32,14 +35,14 @@ public class Principal extends javax.swing.JFrame {
         
         DefaultTableModel temp2 = (DefaultTableModel) jtEstados.getModel();
         temp2.setNumRows(0);
-        temp2.setColumnCount(0);
+        temp2.setColumnCount(1);
     }
     String[] cargar(int opcion){
        DefaultTableModel temp = (DefaultTableModel) jtCinta.getModel();
        temp.setNumRows(0);
        String cadena = " "; 
        
-        if (opcion == 2 | opcion == 4) {
+        if (opcion == 2 | opcion == 4 | opcion == 3 |  opcion == 5) {
              cadena= " " + jtxtCadena.getText() +" "; 
             for (int i = 0; i < jtxtCadena.getText().length(); i++) {
                cadena = cadena + " ";
@@ -65,6 +68,8 @@ public class Principal extends javax.swing.JFrame {
        simboloLeido = caracter[1];
        movimiento = " ";
         do {
+            estadoAnterior = estado;
+            simboloAnterior = simboloLeido;
             casilla = elegirMaquina(opcion);
             //casilla = maquina.palindromo(estado, simboloLeido);
             
@@ -80,10 +85,14 @@ public class Principal extends javax.swing.JFrame {
                 posicion = posicion -1;
             }
             simboloLeido = caracter[posicion];
-            temp.addRow(caracter);            
+            temp.addRow(caracter); 
+            
+            EscribirEstado(estadoAnterior, simboloAnterior, estado, simboloEscrito,
+            movimiento);
+            
              if ("F".equals(casilla[0])) {
-                JOptionPane.showMessageDialog(null, "infoMessage", 
-                                "La cadena es un palindromo",
+                JOptionPane.showMessageDialog(null, 
+                                "Maquina Recorrida con éxito","ATENCIÓN", 
                                 JOptionPane.INFORMATION_MESSAGE);
             }
         } while (!casilla[0].contains("F"));
@@ -340,13 +349,25 @@ public class Principal extends javax.swing.JFrame {
                 casilla = maquina.copiar(estado, simboloLeido);
                 break;
             case 3:
+               casilla = maquina.resta(estado, simboloLeido);
                break;
             case 4:
                 casilla = maquina.multiplicar(estado, simboloLeido);
                 break;
             case 5:
+                casilla = maquina.suma(estado, simboloLeido);
+                //casilla = maquina.suma(estado, simboloLeido);
                 break;
         }
      return casilla;
+    }
+
+    private void EscribirEstado(String estadoAnterior, String simboloAnterior, String estado, String simboloEscrito, String movimiento) {
+        DefaultTableModel temp2 = (DefaultTableModel) jtEstados.getModel();
+        String caracter[] = new String[1];
+        
+        caracter[0] = estadoAnterior + "; " + simboloAnterior + "; " +
+                estado +", " + simboloEscrito  +", " + movimiento;
+        temp2.addRow(caracter);
     }
 }
